@@ -1,21 +1,73 @@
 class Solution {
     public static ArrayList<Integer> findUnion(int a[], int b[]) {
         // code here
-        ArrayList<Integer> arr=new ArrayList<>();
-        HashMap<Integer,Integer> map= new HashMap<>();
-        for(int i=0;i<a.length;i++){
-            if(!map.containsKey(a[i])){
-                arr.add(a[i]);
-                map.put(a[i],1);
+        ArrayList<Integer> union= new ArrayList<>();
+        int i=0;
+        int j=0;
+        int k=0;
+        while(i!=a.length && j!=b.length){
+            if(a[i]<=b[j]){
+                if(union.size()==0){
+                    union.add(a[i]);
+                    i=i+1;
+                    k=k+1;
+                }
+                else if(union.get(k-1)!=a[i]){
+                    union.add(a[i]);
+                    i=i+1;
+                    k=k+1;
+                }
+                else{
+                    i=i+1;
+                }
+            }
+            else{
+                if(union.size()==0){
+                    union.add(b[j]);
+                    j=j+1;
+                    k=k+1;
+                }
+                else if(union.get(k-1)!=b[j]){
+                    union.add(b[j]);
+                    j=j+1;
+                    k=k+1;
+                }
+                else{
+                    j=j+1;
+                }
             }
         }
-        for(int j=0;j<b.length;j++){
-            if(!map.containsKey(b[j])){
-                arr.add(b[j]);
-                map.put(b[j],1);
+        
+        while(j!=b.length){
+            if(union.size()==0){
+                union.add(b[j]);
+                j=j+1;
+                k=k+1;
+            }
+            else if(union.get(k-1)!=b[j]){
+                union.add(b[j]);
+                j=j+1;
+                k=k+1;
+            }
+            else{
+                j=j+1;
             }
         }
-        arr.sort(null);
-        return arr;
+        while(i!=a.length){
+            if(union.size()==0){
+                union.add(a[i]);
+                i=i+1;
+                k=k+1;
+            }
+            else if(union.get(k-1)!=a[i]){
+                union.add(a[i]);
+                i=i+1;
+                k=k+1;
+            }
+            else{
+                i=i+1;
+            }
+        }
+        return union;
     }
 }
